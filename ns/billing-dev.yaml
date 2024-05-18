@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: dev
+  name: billing-dev
+  namespace: dev
+spec:
+  containers:
+  - args:
+    - billing-dev
+    image: ohhong/mynode:1.0
+    name: billing-dev
+    ports:
+    - containerPort: 8080

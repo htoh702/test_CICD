@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: commerce-pod1-deploy
+  name: commerce-pod1-deploy
+  namespace: commerce
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: commerce-pod1-deploy
+  template:
+    metadata:
+      labels:
+        app: commerce-pod1-deploy
+      namespace: commerce
+    spec:
+      containers:
+      - image: traefik/whoami:latest
+        name: commerce-pod1-deploy
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "20m"
+          limits:
+            memory: "400Mi"
+            cpu: "20m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: commerce-pod1-svc
+  namespace: commerce
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: commerce-pod1-deploy
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: commerce-pod2-deploy
+  name: commerce-pod2-deploy
+  namespace: commerce
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: commerce-pod2-deploy
+  template:
+    metadata:
+      labels:
+        app: commerce-pod2-deploy
+      namespace: commerce
+    spec:
+      containers:
+      - image: traefik/whoami:latest
+        name: commerce-pod2-deploy
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "20m"
+          limits:
+            memory: "400Mi"
+            cpu: "20m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: commerce-pod2-svc
+  namespace: commerce
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: commerce-pod2-deploy
+

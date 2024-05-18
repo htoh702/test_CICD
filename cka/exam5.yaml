@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+      - mountPath: "/usr/share/nginx/html"
+        name: task-pv-claim
+      ports:
+      - containerPort: 80
+  volumes:
+    - name: task-pv-claim
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+
+# k run nginx --image=nginx --port=80 --dry-run=client -o yaml > exam5.yaml

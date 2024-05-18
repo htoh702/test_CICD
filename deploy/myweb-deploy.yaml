@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myweb-deploy
+  name: myweb-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myweb-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myweb-deploy
+    spec:
+      containers:
+      - image: nginx:1.17
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}

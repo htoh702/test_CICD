@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hi-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: main-svc
+            port:
+              number: 5678
+      - path: /bookstore
+        pathType: Prefix
+        backend:
+          service:
+            name: bookstore-svc
+            port:
+              number: 5678
+      - path: /payment
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-svc
+            port:
+              number: 5678

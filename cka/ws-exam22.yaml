@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: containers
+spec:
+  containers:
+  - image: nginx
+    name: nginx-container
+  - image: redis
+    name: redis-container
+  - image: consul:1.15
+    name: consul-container

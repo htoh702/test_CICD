@@ -1,0 +1,37 @@
+apiVersion: v1
+data:
+  cncf-sec.txt: Y25jZi1zZWNyZXQK
+kind: Secret
+metadata:
+  name: cncf-secret
+---
+apiVersion: v1
+data:
+  cncf-file.txt: |
+    cncf-configmap
+kind: ConfigMap
+metadata:
+  name: cncf-configmap
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-cm-sec
+spec:
+  containers:
+    - name: my-cm-sec
+      image: nginx
+      env:
+        - name: CMFILE
+          valueFrom:
+            configMapKeyRef:
+              name: cncf-configmap
+              key: cncf-file.txt
+        - name: SECFILE
+          valueFrom:
+            secretKeyRef:
+              name: cncf-secret
+              key: cncf-sec.txt
+
+
+

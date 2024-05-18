@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sec-app
+  name: web-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sec-app
+  template:
+    metadata:
+      labels:
+        app: sec-app
+    spec:
+      containers:
+      - image: dbgurum/k8s-lab:secret-1.0
+        name: testapp
+        ports:
+        - containerPort: 8080
+        env:
+          - name: SECRET_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: account-pwd-secret
+                key: k8s-account.txt
+          - name: SECRET_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: account-pwd-secret
+                key: k8s-pwd.txt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sec-app
+  name: web-deploy-svc
+spec:
+  ports:
+  - nodePort: 30303
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: sec-app
+  type: NodePort

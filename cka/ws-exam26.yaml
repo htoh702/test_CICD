@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: super-secret
+stringData:
+  name: super-secret
+  password: bob
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-secret-via-file
+spec:
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: super-secret
+  containers:
+    - name: pod-secret-via-file
+      image: redis
+      volumeMounts:
+        - name: secret-volume
+          readOnly: true
+          mountPath: "/secrets"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-secret-via-env
+spec:
+  containers:
+    - name: pod-secret-via-env
+      image: redis
+      env:
+      - name: CCONFIDENTIAL
+        valueFrom:
+          secretKeyRef:
+            name: super-secret
+            key: password

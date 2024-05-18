@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-pod
+spec:
+  containers:
+  - image: busybox
+    name: webserver
+    command: ['sh', '-c', 'sleep 500;']
+    volumeMounts:
+    - mountPath: /var/htdocs
+      name: publichtml
+    - mountPath: /var/logs
+      name: logvol
+  - image: busybox
+    name: contentagent
+    command: ['sh', '-c', 'sleep 500;']
+    volumeMounts:
+    - mountPath: /var/htdocs
+      name: publichtml
+  - image: busybox
+    name: logrotator
+    command: ['sh', '-c', 'sleep 500;']
+    volumeMounts:
+    - mountPath: /var/logs
+      name: logvol
+  volumes:
+  - name: logvol
+    emptyDir: {}
+  - name: publichtml
+    emptyDir: {}

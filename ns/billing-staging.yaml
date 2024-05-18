@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: billing-staging
+  name: billing-staging
+  namespace: stg
+spec:
+  containers:
+  - args:
+    - billing-staging
+    image: ohhong/mynode:1.0
+    name: billing-staging
+    ports:
+    - containerPort: 8080

@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p1
+  labels:
+    type: infra
+    job: web
+spec:
+  containers:
+  - name: p1-container
+    image: dbgurum/k8s-lab:initial
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p2
+  labels:
+    type: infra
+    job: db
+spec:
+  containers:
+  - name: p2-container
+    image: dbgurum/k8s-lab:initial
+
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p3
+  labels:
+    type: infra
+    job: srv
+spec:
+  containers:
+  - name: p3-container
+    image: dbgurum/k8s-lab:initial
+
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p4
+  labels:
+    type: dev
+    job: web
+spec:
+  containers:
+  - name: p4-container
+    image: dbgurum/k8s-lab:initial
+
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p5
+  labels:
+    type: dev
+    job: db
+spec:
+  containers:
+  - name: p5-container
+    image: dbgurum/k8s-lab:initial
+
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-p6
+  labels:
+    type: dev
+    job: srv
+spec:
+  containers:
+  - name: p6-container
+    image: dbgurum/k8s-lab:initial
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-web-svc
+spec:
+  selector:
+    job: web
+    type: infra
+  ports:
+  - port: 8083
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-web-svc
+spec:
+  selector:
+    job: web
+  ports:
+  - port: 8081
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-svc
+spec:
+  selector:
+    type: infra
+  ports:
+  - port: 8082

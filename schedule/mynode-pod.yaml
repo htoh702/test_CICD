@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: hi-mynode
+  name: nodeport-pod
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: k8s-node1
+  containers:
+  - name: mynode-container
+    image: dbgurum/mynode:1.0
+    ports:
+    - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeport-svc
+spec:
+  selector:
+    app: hi-mynode
+  ports:
+  - port: 8899
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 30000
+  type: NodePort

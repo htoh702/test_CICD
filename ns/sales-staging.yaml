@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: sales-staging
+  name: sales-staging
+  namespace: stg
+spec:
+  containers:
+  - args:
+    - sales-staging
+    image: ohhong/goapp:1.0
+    name: sales-staging
+    ports:
+    - containerPort: 9000
+    
+    

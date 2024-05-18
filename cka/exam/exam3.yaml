@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx-random
+  name: nginx-random
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-random
+  template:
+    metadata:
+      labels:
+        app: nginx-random
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-random-service
+spec:
+  selector:
+    app.kubernetes.io/name: nginx-random
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

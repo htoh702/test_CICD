@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  mypwd: azhzcGFzcyM=
+kind: Secret
+metadata:
+  creationTimestamp: "2024-04-19T01:08:33Z"
+  name: my-pwd
+  namespace: default
+  resourceVersion: "262434"
+  uid: cf441d54-e31a-4508-a6c7-13a1feffa776
+type: Opaque

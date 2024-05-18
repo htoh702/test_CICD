@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-nfs
+spec:
+  capacity:
+    storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  mountOptions:
+  - hard
+  nfs:
+    path: /data_dir
+    server: 192.168.56.101
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-nfs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1G
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodejs-pvc-pod
+spec:
+  containers:
+  - name: nodejs-container
+    image: dbgurum/mynode:1.0
+    ports:
+    - containerPort: 8000
+    volumeMounts:
+    - name: test-path
+      mountPath: /mount1
+  volumes:
+  - name: test-path
+    persistentVolumeClaim:
+      claimName: pvc-nfs

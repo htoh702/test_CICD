@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: main
+  name: main
+spec:
+  containers:
+  - image: busybox
+    name: main
+    command: ['/bin/sh', '-c', 'echo "The app is running!" > /workdir/calm.txt && sleep 3']
+    volumeMounts:
+      - name: data
+        mountPath: /workdir
+ initContainers:
+  - name: sidecar
+    image: busybox
+    restartPolicy: Always
+    command: ['/bin/sh', '-c', 'touch /workdir/calm.txt'] 
+    volumeMounts:
+      - name: data
+        mountPath: /workdir
+  volumes:
+    - name: data
+      emptyDir: {}

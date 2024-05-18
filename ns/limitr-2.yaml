@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: limitr-2
+  namespace: ops-ns
+spec:
+  limits:
+  - type: PersistentVolumeClaim
+    max:
+      storage: 3Gi
+    min:
+      storage: 1Gi
+  - type: Container
+    default:
+      memory: 512Mi
+    defaultRequest:
+      memory: 256Mi

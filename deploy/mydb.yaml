@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: mydb
+  name: mydb
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mydb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mydb
+    spec:
+      containers:
+      - image: dbgurum/k8s-lab:healthcheck-1.0
+        name: k8s-lab
+        ports:
+        - containerPort: 8080
+        resources: {}
+        envFrom:
+        - configMapRef:
+            name: mydb-cnf
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mydb-secret
+              key: user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mydb-secret
+              key: userpwd
+status: {}

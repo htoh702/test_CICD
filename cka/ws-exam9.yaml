@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: presentation
+  name: presentation
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: presentation
+  template:
+    metadata:
+      labels:
+        app: presentation
+    spec:
+      containers:
+      - image: nginx:1.21
+        name: nginx

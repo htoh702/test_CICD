@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: shipping-staging
+  name: shipping-staging
+  namespace: stg
+spec:
+  containers:
+  - args:
+    - shipping-staging
+    image: ohhong/myweb:1.0
+    name: shipping-staging
+    ports:
+    - containerPort: 80

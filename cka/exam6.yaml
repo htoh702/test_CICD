@@ -1,0 +1,3 @@
+
+kubectl get pods xxx -o json
+kubectl get pv --sort-by=.spec.capacity.storage

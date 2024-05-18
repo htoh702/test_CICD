@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: big-corp-app
+  name: big-corp-app
+spec:
+  containers:
+  - image: busybox
+    name: big-corp-app
+    command: ['/bin/sh', '-c', 'while true; do echo "logging" >> /var/log/big-corp-app.log; sleep 1; done']
+    volumeMounts:
+      - name: data
+        mountPath: /var/log/
+  initContainers:
+  - name: sidecar
+    image: busybox
+    restartPolicy: Always
+    command: ['/bin/sh', '-c', 'tail -F /var/log/big-corp-app.log']
+    volumeMounts:
+      - name: data
+        mountPath: /var/log/
+  volumes:
+    - name: data
+      emptyDir: {}

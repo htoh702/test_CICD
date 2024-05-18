@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx-resources
+  name: nginx-resources
+spec:
+  containers:
+  - image: nginx
+    name: nginx-resources
+    resources:
+      requests:
+        cpu: "300m"
+        memory: "1Gi"
