@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: super-secret
-data:
-  name: super-secret
-  password: bob
