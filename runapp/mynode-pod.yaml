@@ -6,7 +6,7 @@ metadata:
     app: node
 spec:
   containers:
-  - image: ohhong/mynode:1.0
+  - image: ${{ secrets.DOCKER_USERNAME }}/test:latest
     name: node-container
     ports:
     - containerPort: 8080
